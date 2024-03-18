@@ -1,0 +1,16 @@
+{% extends "padre.html" %}
+
+{%block medico%}
+
+<form action="/AppCoder/" method="post"> {% csrf_token %}
+
+    <p> Nombre: <input type ='text'></p>
+    <p> Apellido: <input type ='text'></p>
+    <p> Correo electrónico: <input type ='email'></p>
+    <p> Código de registro: <input type ='text' name="cod_medico"></p>
+
+    <input type="submit" value="Guardar">
+
+</from>
+
+{% endblock %}
