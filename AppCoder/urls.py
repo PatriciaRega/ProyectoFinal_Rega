@@ -7,6 +7,6 @@ urlpatterns = [
     path("crear_solicitudes/", crear_solicitud, name = 'crear solicitudes'),
     path("ver_medicos/", ver_medicos, name = 'ver medicos'),
     path("ver_pacientes/", ver_pacientes, name = 'ver pacientes'),
-    path("ver_solicitudes/", ver_solicitudes, name = 'ver solicitudes'),
+    path("buscar_solicitudes/", buscar_solicitudes, name = 'buscar solicitudes'),
     path("", inicio, name="Home")
     ]
