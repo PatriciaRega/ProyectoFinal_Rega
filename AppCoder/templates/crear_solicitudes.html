@@ -1,16 +1,16 @@
 {% extends "padre.html" %}
 
-{%block solicitud%}
+{% block solicitud %}
 
-<form action="/AppCoder/" method="post"> {% csrf_token %}
+<form action="" method="post"> {% csrf_token %}
 
-    <p> Fármaco: <input type ='text'></p>
-    <p> Código de registro del paciente: <input type ='text'></p>
-    <p> Código de registro del medico solicitante: <input type ='text'></p>
-    <p> Fecha de ingreso de solicitud: <input type ='date'></p>
+    <p> Fármaco: <input type="text" name="farmaco"></p>
+    <p> Código de registro del paciente: <input type="text" name="cod_paciente"></p>
+    <p> Código de registro del médico solicitante: <input type="text" name="cod_medico"></p>
+    <p> Fecha de ingreso de solicitud: <input type="date" name="fecha"></p>
 
     <input type="submit">
 
-</from>
+</form>
 
 {% endblock %}

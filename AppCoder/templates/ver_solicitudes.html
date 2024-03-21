@@ -1,7 +1,7 @@
 {% extends "padre.html" %}
 
 {% block titulo %}
-Listado de pacientes registrados
+Listado de solicitudes realizadas
 {% endblock %}
 
 {%block solicitudes%}
@@ -10,7 +10,7 @@ Listado de pacientes registrados
 
     {% for valor in total %}
 
-    <li> Paciente: {{valor.nombre}} {{valor.apellido}} - Edad: {{valor.edad}} - Número de registro: {{valor.cod_paciente}} -  </li>
+    <li> Fecha: {{valor.fecha}} - Fármaco: {{valor.farmaco}} - Paciente: {{valor.cod_paciente}} - Médico: {{valor.cod_fecha}} </li>
 
     todas_solucitudes
 
