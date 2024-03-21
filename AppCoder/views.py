@@ -8,15 +8,6 @@ from AppCoder.forms import FormularioMedico
 def inicio(request):
     return render(request, "inicio.html")   
 
-def ver_medicos(request):
-    return render(request, "ver_medicos.html")   
-
-def ver_pacientes(request):
-    return render(request, "ver_pacientes.html")   
-
-def ver_solicitudes(request):
-    return render(request, "ver_solicitudes.html")    
-
 
 ##CRUD de Solicitud
 
@@ -24,7 +15,7 @@ def crear_solicitud(request):
 
     if request.method == 'POST':
 
-        nueva_solicitud = Solicitud(num_paciente=request.POST["num_paciente"], num_medico=request.POST["num_medico"])
+        nueva_solicitud = Solicitud(farmaco=request.POST["farmaco"], cod_paciente=request.POST["cod_paciente"], cod_medico=request.POST["cod_medico"], fecha=request.POST["fecha"])
         nueva_solicitud.save()
         
     else:
@@ -33,8 +24,16 @@ def crear_solicitud(request):
 
     return render(request, "crear_solicitudes.html")
 
+def ver_solicitudes(request):
+
+    todas_solucitudes = Solicitud.objects.all()
+
+    return render(request, "ver_solicitudes.html", {"total":todas_solucitudes})    
 
 ##CRUD de Paciente
+
+def ver_pacientes(request):
+    return render(request, "ver_pacientes.html")   
 
 def crear_paciente(request):
 
@@ -48,8 +47,23 @@ def crear_paciente(request):
 
     return render(request, "crear_pacientes.html")
 
+def ver_pacientes(request):
+
+    todos_pacientes = Solicitud.objects.all()
+
+    return render(request, "ver_solicitudes.html", {"total":todos_pacientes})  
+
+#def acutalizar_paciente(request, id_paciente):
+
+   # paciente_elegido = Paciente.objects.get(nombre=id_paciente)
+
+
+
 
 ##CRUD de Médico
+
+def ver_medicos(request):
+    return render(request, "ver_medicos.html")   
 
 def crear_medico(request):
 
@@ -76,15 +90,35 @@ def crear_medico(request):
 
     return render(request, "crear_medicos.html", {"form1":formulario_medico1})
 
-    #def registro_medico(request):
-    #if request.method == "POST":
-        #medico = Medico(cod_medico=request.POST["cod_medico"])
-#nombre=request.POST["nombre"], apellido=request.POST["apellido"], email=request.POST["email"], 
-        #medico.save()
-        #return render(request, "AppCoder/inicio.html")
+def ver_medico(request):
 
+    todos_medicos = Medico.objects.all()
 
-## Busqueda de solicitudes 
+    return render(request, "ver_medicos.html", {"total":todos_medicos})
+
+def actualizar_medico(request, medico):
+        
+    medico_seleccionado = FormularioMedico(request.POST)
+
+    if medico_seleccionado.is_valid():
+            
+            info = formulario_medico1.cleaned_data
+
+            medico_seleccionado.nombre = info["nombre"], 
+            medico_seleccionado.apellido=info["apellido"], 
+            medico_seleccionado.email=info["email"], 
+            medico_seleccionado.cod_medico=info["cod_medico"]
+
+            medico_seleccionado.save()
+
+            return render(request, "inicio.html")
+    
+    else:
+            
+        formulario_medico1 = FormularioMedico()
+
+    return render(request, "actualizar_medicos.html", {"form1":formulario_medico1})
+    
 
 def buscar_solicitudes(request):
 
