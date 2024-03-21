@@ -1,0 +1,25 @@
+{% extends "padre.html" %}
+
+{% block parrafo %}
+
+<form action="/AppCoder/buscar_solicitudes" method="GET">
+
+<p>
+
+    <input type="submit" value="Buscar">
+
+</p>
+    
+</form>
+
+
+<p>{{mensaje}}</p>
+
+{%for cod_paciente in resultados %}
+
+{% endfor %}
+
+{{cod_paciente}}
+
+{ % endblock %}
+
