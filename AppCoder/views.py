@@ -96,9 +96,9 @@ def ver_medico(request):
 
     return render(request, "ver_medicos.html", {"total":todos_medicos})
 
-def actualizar_medico(request, medico):
+def actualizar_medico(request, id_medico):
         
-    medico_seleccionado = FormularioMedico(request.POST)
+    medico_seleccionado = FormularioMedico.objects.get(id = id_medico)
 
     if medico_seleccionado.is_valid():
             
@@ -115,10 +115,22 @@ def actualizar_medico(request, medico):
     
     else:
             
-        formulario_medico1 = FormularioMedico()
+        formulario_medico1 = FormularioMedico(initial={"nombre":medico_seleccionado.nombre,
+                                                       "apellido":medico_seleccionado.apellido,
+                                                       "email":medico_seleccionado.email,
+                                                       "cod_medico":medico_seleccionado
+                                                       })
 
     return render(request, "actualizar_medicos.html", {"form1":formulario_medico1})
-    
+
+def borrar_medico(request, id_medico):
+        
+    medico_seleccionado = Medico.objects.get(id = id_medico)
+
+    medico_seleccionado.delete()
+
+    return render(request, "inicio.html") 
+   
 
 def buscar_solicitudes(request):
 
