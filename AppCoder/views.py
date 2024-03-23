@@ -1,68 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from AppCoder.models import Medico, Solicitud, Paciente
-from AppCoder.forms import FormularioMedico
+from AppCoder.forms import FormularioMedico, FormularioPaciente, FormularioSolicitud
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib import messages
 
 # Create your views here.
 
 def inicio(request):
-    return render(request, "inicio.html")   
+    return render(request, "inicio.html")  
 
-
-
-
-####### CRUD de Solicitud #######
-
-def crear_solicitud(request):
-
-    if request.method == 'POST':
-
-        nueva_solicitud = Solicitud(farmaco=request.POST["farmaco"], cod_paciente=request.POST["cod_paciente"], cod_medico=request.POST["cod_medico"], fecha=request.POST["fecha"])
-        nueva_solicitud.save()
-        
-    else:
-
-        pass
-
-    return render(request, "crear_solicitudes.html")
-
-def ver_solicitudes(request):
-
-    todas_solucitudes = Solicitud.objects.all()
-
-    return render(request, "ver_solicitudes.html", {"total":todas_solucitudes})    
-
-
-
-
-####### CRUD de Paciente #######
-
-def ver_pacientes(request):
-    return render(request, "ver_pacientes.html")   
-
-def crear_paciente(request):
-
-    if request.method == 'POST':
-
-        pass
-
-    else:
-        
-        pass
-
-    return render(request, "crear_pacientes.html")
-
-def ver_pacientes(request):
-
-    todos_pacientes = Solicitud.objects.all()
-
-    return render(request, "ver_solicitudes.html", {"total":todos_pacientes})  
-
-#def acutalizar_paciente(request, id_paciente):
-
-   # paciente_elegido = Paciente.objects.get(nombre=id_paciente)
+def sobre_mi(request):
+    return render(request, "sobre_mi.html")  
 
 
 ####### CRUD de Médico #######
@@ -84,13 +34,13 @@ def crear_medico(request):
 
             medico.save()
 
-            return render(request, "inicio.html")
+            return redirect("crear pacientes")
     
     else:
             
         formulario_medico1 = FormularioMedico()
 
-    return render(request, "crear_medicos.html", {"form1":formulario_medico1})
+    return render(request, "crear_pacientes.html", {"form1":formulario_medico1})
 
 def ver_medicos(request):
 
@@ -132,7 +82,119 @@ def borrar_medico(request, id_medico):
     medico_seleccionado.delete()
 
     return render(request, "inicio.html") 
-   
+
+
+
+####### CRUD de PACIENTE #######
+
+def crear_paciente(request):
+
+    if request.method == "POST":
+
+        formulario_paciente1 = FormularioPaciente(request.POST)
+
+        if formulario_paciente1.is_valid():
+            
+            info = formulario_paciente1.cleaned_data
+
+            paciente = Paciente(nombre=info["nombre"], 
+                                apellido=info["apellido"], 
+                                edad=info["edad"], 
+                                cod_paciente=info["cod_paciente"])
+
+            paciente.save()
+
+            return redirect("crear solicitudes")
+    
+    else:
+            
+        formulario_paciente1 = FormularioPaciente()
+
+    return render(request, "crear_pacientes.html", {"form1":formulario_paciente1})
+
+def ver_pacientes(request):
+
+    todos_pacientes = Paciente.objects.all()
+
+    return render(request, "ver_pacientes.html", {"total":todos_pacientes})
+
+def actualizar_paciente(request, id_paciente):
+
+    paciente_seleccionado = Paciente.objects.get(id=id_paciente)
+
+    if request.method == "POST":
+
+        formulario_paciente1 = FormularioPaciente(request.POST, instance=paciente_seleccionado)
+
+        if formulario_paciente1.is_valid():
+
+            formulario_paciente1.save()
+
+            return render(request, "crear_solicitudes.html")
+    else:
+        formulario_paciente1 = FormularioPaciente(instance=paciente_seleccionado)
+
+    return render(request, "actualizar_pacientes.html", {"form1": formulario_paciente1})
+
+def borrar_pacientes(request, id_medico):
+        
+    paciente_seleccionado = Paciente.objects.get(id = id_medico)
+
+    paciente_seleccionado.delete()
+
+    return render(request, "inicio.html")
+
+
+
+####### CRUD de Solicitud #######
+
+def crear_solicitud(request):
+
+    if request.method == "POST":
+        formulario_solicitud = FormularioSolicitud(request.POST)
+
+        if formulario_solicitud.is_valid():
+            info = formulario_solicitud.cleaned_data
+            nueva_solicitud = Solicitud(
+                farmaco=info["farmaco"],
+                cod_paciente=info["cod_paciente"],
+                cod_medico=info["cod_medico"],
+                fecha=info["fecha"]
+            )
+            nueva_solicitud.save()
+
+            messages.success(request, "La solicitud ha sido completada con éxito.")
+            return render(request, "inicio.html")
+
+    else:
+        formulario_solicitud = FormularioSolicitud()
+
+    return render(request, "crear_solicitudes.html", {"form1": formulario_solicitud})
+
+def ver_solicitudes(request):
+    todas_solicitudes = Solicitud.objects.all()
+    return render(request, "ver_solicitudes.html", {"total": todas_solicitudes})
+
+def actualizar_solicitud(request, id_solicitud):
+    solicitud_seleccionada = Solicitud.objects.get(id=id_solicitud)
+
+    if request.method == "POST":
+        formulario_solicitud = FormularioSolicitud(request.POST, instance=solicitud_seleccionada)
+
+        if formulario_solicitud.is_valid():
+            formulario_solicitud.save()
+            return render(request, "crear_solicitudes.html")
+    else:
+        formulario_solicitud = FormularioSolicitud(instance=solicitud_seleccionada)
+
+    return render(request, "actualizar_solicitudes.html", {"form1": formulario_solicitud})
+
+def borrar_solicitud(request, id_solicitud):
+    solicitud_seleccionada = Solicitud.objects.get(id=id_solicitud)
+    solicitud_seleccionada.delete()
+    return render(request, "inicio.html")
+  
+
 
 ####### BUSCAR SOLICITUDES #######
 

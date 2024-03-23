@@ -9,10 +9,22 @@ Medicina personalizada
 {% endblock %}
 
 {% block boton %} 
-<a class="btn btn-primary btn-lg" href="#!">Ingresar solicitud</a>
+<a class="btn btn-primary btn-lg" href="{% url 'crear medicos'%}">Ingresar solicitud</a>
 {% endblock %}
 
 {% block cuerpo %} 
+
+<div class="container">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+</body>
+</html>
 
         <!-- Page Content-->
         <section class="pt-4">

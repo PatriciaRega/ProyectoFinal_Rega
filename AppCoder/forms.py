@@ -1,7 +1,7 @@
 from django import forms
 
 
-class FormularioSolicitudes(forms.Form):    
+class FormularioSolicitud(forms.Form):    
     farmaco = forms.CharField(max_length=60)
     cod_paciente = forms.CharField(max_length=30)
     cod_medico = forms.CharField(max_length=30)

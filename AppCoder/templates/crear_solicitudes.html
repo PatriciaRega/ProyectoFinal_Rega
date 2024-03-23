@@ -1,15 +1,22 @@
 {% extends "padre.html" %}
 
+{% block encabezado %}
+Hoja de solicitud de dosificación
+{% endblock %}
+
 {% block cuerpo %}
+
+Ingrese los datos que se le solicitan a continuación:
 
 <form action="" method="post"> {% csrf_token %}
 
-    <p> Fármaco: <input type="text" name="farmaco"></p>
-    <p> Código de registro del paciente: <input type="text" name="cod_paciente"></p>
-    <p> Código de registro del médico solicitante: <input type="text" name="cod_medico"></p>
-    <p> Fecha de ingreso de solicitud: <input type="date" name="fecha"></p>
+    <table>
 
-    <input type="submit">
+        {{form1.as_p}}
+
+    </table>
+    
+    <input type="submit" value="Guardar">
 
 </form>
 

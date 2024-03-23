@@ -1,16 +1,23 @@
 {% extends "padre.html" %}
 
-{%block cuerpo%}
+{% block encabezado %}
+Hoja de registro del paciente
+{% endblock %}
 
-<form action="/AppCoder/" method="post"> {% csrf_token %}
+{% block cuerpo %}
 
-    <p> Nombre: <input type ='text'></p>
-    <p> Apellido: <input type ='text'></p>
-    <p> Edad: <input type ='number'></p>
-    <p> Código de registro del paciente: <input type ='text' name="num_paciente"></p>
+Ingrese los datos corresponientes al paciente que se le solicitan a continuación:
 
+<form action="" method="POST"> {% csrf_token %}
+
+    <table>
+
+        {{form1.as_p}}
+
+    </table>
+    
     <input type="submit" value="Guardar">
 
-</from>
+</form>
 
 {% endblock %}
