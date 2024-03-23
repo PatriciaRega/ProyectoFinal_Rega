@@ -1,0 +1,17 @@
+{% extends "padre.html" %}
+
+{% block encabezado %}
+Crear un nuevo usuario
+{% endblock %}
+
+{% block cuerpo %}
+
+<form action="" method="POST"> {% csrf_token %}
+
+    <p>{{form1}}</p>
+    
+<input type="submit" value="Iniciar Sesión">
+
+</form>
+
+{% endblock %}

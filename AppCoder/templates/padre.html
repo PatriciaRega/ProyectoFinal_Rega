@@ -24,17 +24,20 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'Home'%}">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Sobre mí</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Iniciar sesión</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Crear usuario</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'Inicio'%}">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Inicio'%}">Sobre mí</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'buscar solicitudes'%}">Buscar solicitudes</a></li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Cerrar sesion'%}">Cerrar sesión</a></li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Iniciar sesion'%}">Iniciar sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Crear usuario'%}">Crear usuario</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
         </nav>
         
-        
-
         <!-- Header-->
         <header class="py-5">
             <div class="container px-lg-5">
@@ -48,31 +51,23 @@
                             {% block subtitulo %} 
                             {% endblock %}
                              </p>
+                             {% block boton %} 
+                             {% endblock %}
                     </div>
                 </div>
             </div>
         </header>
-
-
-
-
-
-
-        {% block inicio %}
+    
+        <hr style="border: none; border-top: 1px solid transparent;">
+    <div>
+        {% block cuerpo %}
         {% endblock %}
+    </div>
 
-        {% block medico %}
-        {% endblock %}
-
-        {% block solicitud %}
-        {% endblock %}
-
-        {% block paciente %}
-        {% endblock %}
-
+    <hr style="border: none; border-top: 1px solid transparent;">
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; CoderHouse 2023</p></div>
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Patricia Rega - 2024</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

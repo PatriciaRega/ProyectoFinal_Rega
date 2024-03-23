@@ -1,25 +1,35 @@
 {% extends "padre.html" %}
 
-{% block parrafo %}
+{% block encabezado %}
+Búsqueda de solicitud
+{% endblock %}
+
+{% block cuerpo %}
+
+<p>Ingrese los datos indicados:</p>
 
 <form action="/AppCoder/buscar_solicitudes" method="GET">
 
-<p>
+    <p>
+        <label for="cod_paciente">Código del paciente:</label>
+        <input type="text" id="cod_paciente" name="cod_paciente">
+    </p>
 
-    <input type="submit" value="Buscar">
-
-</p>
+    <p>
+        <input type="submit" value="Buscar">
+    </p>
     
 </form>
 
+<p>{{ mensaje }}</p>
 
-<p>{{mensaje}}</p>
 
-{%for cod_paciente in resultados %}
+{% for solicitud in resultados %}
+
+<ol> Fecha: {{solicitud.fecha}} - Fármaco: {{solicitud.farmaco}} - Paciente: {{solicitud.cod_paciente}} - Medico solicitante: {{solicitud.cod_medico}} </ol>
 
 {% endfor %}
 
-{{cod_paciente}}
 
-{ % endblock %}
 
+{% endblock %}

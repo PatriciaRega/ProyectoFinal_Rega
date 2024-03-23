@@ -4,7 +4,7 @@
 Listado de pacientes registrados
 {% endblock %}
 
-{%block solicitudes%}
+{%block cuerpo%}
 
 <ol> 
 
@@ -12,9 +12,9 @@ Listado de pacientes registrados
 
     <li> Paciente: {{valor.nombre}} {{valor.apellido}} - Edad: {{valor.edad}} - Número de registro: {{valor.cod_paciente}} -  </li>
 
-    todas_solucitudes
+    {{todos_pacientes}}
 
-    {% end for %}
+    {% endfor %}
     
 </ol>
 {% endblock %}

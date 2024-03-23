@@ -1,20 +1,20 @@
 {% extends "padre.html" %}
 
-{% block titulo %}
+{% block encabezado %}
 Listado de solicitudes realizadas
 {% endblock %}
 
-{%block solicitudes%}
+{%block cuerpo%}
 
 <ol> 
 
     {% for valor in total %}
 
-    <li> Fecha: {{valor.fecha}} - Fármaco: {{valor.farmaco}} - Paciente: {{valor.cod_paciente}} - Médico: {{valor.cod_fecha}} </li>
+    <li> Fecha: {{valor.fecha}} - Fármaco: {{valor.farmaco}} - Paciente: {{valor.cod_paciente}} - Médico: {{valor.cod_medico}} </li>
 
-    todas_solucitudes
+    {{todas_solicitudes}}
 
-    {% end for %}
+    {% endfor %}
     
 </ol>
 {% endblock %}
