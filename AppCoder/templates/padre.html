@@ -20,12 +20,12 @@
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container px-lg-5">
-                <a class="navbar-brand" href="#!">Hospital Santa Ana</a>
+                <a class="navbar-brand" href="{% url 'Inicio'%}">Hospital Santa Ana</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'Inicio'%}">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Inicio'%}">Sobre mí</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Sobre mi'%}">Sobre mí</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'buscar solicitudes'%}">Buscar solicitudes</a></li>
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'Cerrar sesion'%}">Cerrar sesión</a></li>
@@ -39,10 +39,10 @@
         </nav>
         
         <!-- Header-->
-        <header class="py-5">
+        <header class="py-3">
             <div class="container px-lg-5">
                 <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-                    <div class="m-4 m-lg-5">
+                    <div class="m-4 m-lg-4">
                         <h1 class="display-5 fw-bold"> 
                             {% block encabezado %} 
                             {% endblock %}
@@ -66,7 +66,7 @@
 
     <hr style="border: none; border-top: 1px solid transparent;">
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
+        <footer class="py-4 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Patricia Rega - 2024</p></div>
         </footer>
         <!-- Bootstrap core JS-->
