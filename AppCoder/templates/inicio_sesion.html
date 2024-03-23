@@ -1,0 +1,19 @@
+{% extends "padre.html" %}
+
+{% block encabezado %}
+Inicio de sesion
+{% endblock %}
+
+{% block cuerpo %}
+
+Ingrese sus datos a continuación:
+
+<form action="" method="POST"> {% csrf_token %}
+
+   <p> {{form1}} </p>
+ 
+
+    <input type="submit" value="Iniciar Sesión">
+
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "padre.html" %}
+
+{% block titulo %}
+Listado de médicos registrados
+{% endblock %}
+
+{%block cuerpo%}
+
+<ol> 
+
+    {% for valor in total %}
+
+    <li> Nombre: {{valor.nombre}} {{valor.apellido}} - Correo electrónico: {{valor.email}} - Código de registro: {{valor.cod_medico}} </li>
+
+    <a href="{% url 'Editar' valor.id %}">Modificar</a>
+    <a href="{% url 'Eliminar' valor.id %}">Eliminar</a>
+
+    {% endfor %}
+    
+</ol>
+
+{% endblock %}

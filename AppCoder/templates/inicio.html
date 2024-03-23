@@ -8,7 +8,11 @@ Laboratorio de monitoreo de fármacos
 Medicina personalizada
 {% endblock %}
 
-{% block inicio %} 
+{% block boton %} 
+<a class="btn btn-primary btn-lg" href="#!">Ingresar solicitud</a>
+{% endblock %}
+
+{% block cuerpo %} 
 
         <!-- Page Content-->
         <section class="pt-4">
@@ -19,8 +23,8 @@ Medicina personalizada
                         <div class="card bg-light border-0 h-100">
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
-                                <a class="btn btn-primary btn-lg" href="{% url 'crear medicos'%}">Registro de médicos</a>
-                                <p class="mb-0">Ingrese aquí si desea hacer una solicitud</p>
+                                <a class="btn btn-primary btn-lg" href="{% url 'ver medicos'%}">Registros de médicos</a>
+                                <p class="mb-0">Ingrese aquí para acceder a la lista de médicos registrados</p>
                             </div>
                         </div>
                     </div>
@@ -28,8 +32,8 @@ Medicina personalizada
                         <div class="card bg-light border-0 h-100">
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-cloud-download"></i></div>
-                                <a class="btn btn-primary btn-lg" href="{% url 'crear pacientes'%}">Registro de pacientes</a>
-                                <p class="mb-0">Ingrese aquí al paciente para el cual se hará la solicitud</p>
+                                <a class="btn btn-primary btn-lg" href="{% url 'ver pacientes'%}">Registros de pacientes</a>
+                                <p class="mb-0">Ingrese aquí para acceder a la lista de pacientes registrados</p>
                             </div>
                         </div>
                     </div>
@@ -37,8 +41,8 @@ Medicina personalizada
                         <div class="card bg-light border-0 h-100">
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-card-heading"></i></div>
-                                <a class="btn btn-primary btn-lg" href="{% url 'crear solicitudes'%}">Registro de solicitudes</a>
-                                <p class="mb-0">Ingrese aquí las solicitudes de dosificación</p>
+                                <a class="btn btn-primary btn-lg" href="{% url 'ver solicitudes'%}">Registros de solicitudes</a>
+                                <p class="mb-0">Ingrese aquí para acceder a la lista de solicitudes de dosificación realizadas</p>
                             </div>
                         </div>
                     </div>
