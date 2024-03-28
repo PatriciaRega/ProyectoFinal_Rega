@@ -1,26 +1,31 @@
 from django import forms
-from .models import Farmaco, Paciente, Medico
+from .models import Farmaco, Paciente, Medico, Solicitud, Avatar
 
-class FormularioSolicitud(forms.Form):    
-    farmaco = forms.ModelChoiceField(queryset=Farmaco.objects.all(), empty_label=None)
-    cod_paciente = forms.ModelChoiceField(queryset=Paciente.objects.all(), empty_label=None)
-    cod_medico = forms.ModelChoiceField(queryset=Medico.objects.all(), empty_label=None)
-    fecha = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+class FormularioSolicitud(forms.ModelForm):
+    class Meta:
+        model = Solicitud
+        fields = ['farmaco', 'cod_paciente', 'cod_medico', 'fecha']
 
-class FormularioMedico(forms.Form):    
-    nombre = forms.CharField(max_length=60)
-    apellido = forms.CharField(max_length=30)
-    email = forms.EmailField()
-    cod_medico = forms.CharField(max_length=10)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['fecha'].widget = forms.DateInput(attrs={'type': 'date', 'format': 'yyyy-mm-dd'})
 
-class FormularioPaciente(forms.Form):    
-    nombre = forms.CharField(max_length=60)
-    apellido = forms.CharField(max_length=30)
-    edad = forms.IntegerField()
-    cod_paciente = forms.CharField(max_length=10)    
+class FormularioMedico(forms.ModelForm):
+    class Meta:
+        model = Medico
+        fields = ['nombre', 'apellido', 'email', 'cod_medico']
+
+class FormularioPaciente(forms.ModelForm):
+    class Meta:
+        model = Paciente
+        fields = ['nombre', 'apellido', 'edad', 'cod_paciente']   
 
 class FormularioFarmaco(forms.ModelForm):
     class Meta:
         model = Farmaco
         fields = ['nombre', 'matriz_biologica']
 
+class AvatarForm(forms.ModelForm):
+    class Meta:
+        model = Avatar
+        fields = ['imagen']

@@ -10,11 +10,13 @@ Listado de pacientes registrados
 
     {% for valor in total %}
 
-    <li> Paciente: {{valor.nombre}} {{valor.apellido}} - Edad: {{valor.edad}} - Número de registro: {{valor.cod_paciente}} -  </li>
+    <li> Nombre: {{valor.nombre}} {{valor.apellido}} - Edad: {{valor.edad}} - Código de registro: {{valor.cod_paciente}} </li>
 
-    {{todos_pacientes}}
+    <a href="{% url 'Editar paciente' valor.id %}">Modificar</a>
+    <a href="{% url 'Eliminar paciente' valor.id %}">Eliminar</a>
 
     {% endfor %}
     
 </ol>
+
 {% endblock %}

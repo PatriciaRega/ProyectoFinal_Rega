@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from AppCoder.models import Medico, Solicitud, Paciente, Farmaco
-from AppCoder.forms import FormularioMedico, FormularioPaciente, FormularioSolicitud, FormularioFarmaco
+from AppCoder.forms import FormularioMedico, FormularioPaciente, FormularioSolicitud, FormularioFarmaco, AvatarForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+
+
 
 # Create your views here.
 
@@ -14,9 +18,17 @@ def inicio(request):
 def sobre_mi(request):
     return render(request, "sobre_mi.html")  
 
+#Permisos de administrador
+
+def es_administrador(user):
+    return user.is_authenticated and user.is_superuser
+
+def no_permiso(request):
+    return render(request, 'no_permiso.html')
 
 ####### CRUD de Médico #######
 
+@login_required
 def crear_medico(request):
 
     if request.method == "POST":
@@ -50,33 +62,21 @@ def ver_medicos(request):
 
     return render(request, "ver_medicos.html", {"total":todos_medicos})
 
+@login_required
 def actualizar_medico(request, id_medico):
-        
-    medico_seleccionado = FormularioMedico.objects.get(id = id_medico)
+    medico_seleccionado = Medico.objects.get(id=id_medico)
 
-    if medico_seleccionado.is_valid():
-            
-            info = formulario_medico1.cleaned_data
-
-            medico_seleccionado.nombre = info["nombre"], 
-            medico_seleccionado.apellido=info["apellido"], 
-            medico_seleccionado.email=info["email"], 
-            medico_seleccionado.cod_medico=info["cod_medico"]
-
-            medico_seleccionado.save()
-
+    if request.method == "POST":
+        formulario_medico = FormularioMedico(request.POST, instance=medico_seleccionado)
+        if formulario_medico.is_valid():
+            formulario_medico.save()
             return render(request, "inicio.html")
-    
     else:
-            
-        formulario_medico1 = FormularioMedico(initial={"nombre":medico_seleccionado.nombre,
-                                                       "apellido":medico_seleccionado.apellido,
-                                                       "email":medico_seleccionado.email,
-                                                       "cod_medico":medico_seleccionado
-                                                       })
+        formulario_medico = FormularioMedico(instance=medico_seleccionado)
 
-    return render(request, "actualizar_medicos.html", {"form1":formulario_medico1})
+    return render(request, "actualizar_medicos.html", {"form1": formulario_medico})
 
+@login_required
 def borrar_medico(request, id_medico):
         
     medico_seleccionado = Medico.objects.get(id = id_medico)
@@ -86,6 +86,9 @@ def borrar_medico(request, id_medico):
     return render(request, "inicio.html") 
 
 ####### CRUD de Farmaco #######
+
+@login_required
+@user_passes_test(es_administrador, login_url='no permiso')
 
 def crear_farmaco(request):
 
@@ -118,6 +121,8 @@ def ver_farmaco(request):
 
     return render(request, "ver_farmaco.html", {"total":todos_farmacos})
 
+@login_required
+@user_passes_test(es_administrador, login_url='/no permiso/')
 def actualizar_farmaco(request, id_farmaco):
 
     farmaco_seleccionado = Farmaco.objects.get(id=id_farmaco)
@@ -136,6 +141,8 @@ def actualizar_farmaco(request, id_farmaco):
 
     return render(request, "actualizar_farmaco.html", {"form1": farmaco_seleccionado})
 
+@login_required
+@user_passes_test(es_administrador, login_url='/no permiso/')
 def borrar_farmaco(request, id_farmaco):
         
     farmaco_seleccionado = Farmaco.objects.get(id = id_farmaco)
@@ -147,6 +154,7 @@ def borrar_farmaco(request, id_farmaco):
 
 ####### CRUD de PACIENTE #######
 
+@login_required
 def crear_paciente(request):
 
     if request.method == "POST":
@@ -180,24 +188,22 @@ def ver_pacientes(request):
 
     return render(request, "ver_pacientes.html", {"total":todos_pacientes})
 
+@login_required
 def actualizar_paciente(request, id_paciente):
-
     paciente_seleccionado = Paciente.objects.get(id=id_paciente)
-
+   
     if request.method == "POST":
-
-        formulario_paciente1 = FormularioPaciente(request.POST, instance=paciente_seleccionado)
-
-        if formulario_paciente1.is_valid():
-
-            formulario_paciente1.save()
-
-            return render(request, "crear_pacientes.html")
+        formulario_paciente = FormularioPaciente(request.POST, instance=paciente_seleccionado)
+        if formulario_paciente.is_valid():
+            formulario_paciente.save()
+            return render(request, "inicio.html")
+        
     else:
-        formulario_paciente1 = FormularioPaciente(instance=paciente_seleccionado)
+        formulario_paciente = FormularioPaciente(instance=paciente_seleccionado)
 
-    return render(request, "actualizar_pacientes.html", {"form1": formulario_paciente1})
+    return render(request, "actualizar_pacientes.html", {"form1": formulario_paciente})
 
+@login_required
 def borrar_pacientes(request, id_paciente):
         
     paciente_seleccionado = Paciente.objects.get(id = id_paciente)
@@ -210,6 +216,7 @@ def borrar_pacientes(request, id_paciente):
 
 ####### CRUD de Solicitud #######
 
+@login_required
 def crear_solicitud(request):
 
     if request.method == "POST":
@@ -233,24 +240,27 @@ def crear_solicitud(request):
 
     return render(request, "crear_solicitudes.html", {"form1": formulario_solicitud})
 
+@login_required
 def ver_solicitudes(request):
     todas_solicitudes = Solicitud.objects.all()
     return render(request, "ver_solicitudes.html", {"total": todas_solicitudes})
 
+@login_required
 def actualizar_solicitud(request, id_solicitud):
     solicitud_seleccionada = Solicitud.objects.get(id=id_solicitud)
-
+   
     if request.method == "POST":
         formulario_solicitud = FormularioSolicitud(request.POST, instance=solicitud_seleccionada)
-
         if formulario_solicitud.is_valid():
             formulario_solicitud.save()
-            return render(request, "crear_solicitudes.html")
+            return render(request, "inicio.html")
+        
     else:
         formulario_solicitud = FormularioSolicitud(instance=solicitud_seleccionada)
 
     return render(request, "actualizar_solicitudes.html", {"form1": formulario_solicitud})
 
+@login_required
 def borrar_solicitud(request, id_solicitud):
     solicitud_seleccionada = Solicitud.objects.get(id=id_solicitud)
     solicitud_seleccionada.delete()
@@ -260,6 +270,7 @@ def borrar_solicitud(request, id_solicitud):
 
 ####### BUSCAR SOLICITUDES #######
 
+@login_required
 def buscar_solicitudes(request):
 
     filtrar_solicitud = None  # Inicializa la variable fuera del bloque 'if'
@@ -267,7 +278,7 @@ def buscar_solicitudes(request):
     if 'cod_paciente' in request.GET:
 
         cod_paciente = request.GET['cod_paciente']
-        filtrar_solicitud = Solicitud.objects.filter(cod_paciente__icontains=cod_paciente)
+        filtrar_solicitud = Solicitud.objects.filter(cod_paciente__cod_paciente__icontains=cod_paciente)
         mensaje = f"Se ha buscado la solicitud para el paciente {request.GET['cod_paciente']}"
     
     else:
@@ -289,7 +300,7 @@ def iniciar_sesion(request):
 
             info = formulario.cleaned_data
 
-            usuario = authenticate(username=info["username"], password = info["pasword"])
+            usuario = authenticate(username=info["username"], password = info["password"])
 
             if usuario is not None:
 
@@ -311,22 +322,21 @@ def iniciar_sesion(request):
 # Registrarse
 
 def registrarse(request):
-
     if request.method == "POST":
+        formulario_usuario = UserCreationForm(request.POST)
+        formulario_avatar = AvatarForm(request.POST, request.FILES) 
 
-        formulario = UserCreationForm(request.POST)
+        if formulario_usuario.is_valid() and formulario_avatar.is_valid():
+            usuario = formulario_usuario.save()
+            avatar = formulario_avatar.save(commit=False)
+            avatar.user = usuario 
+            avatar.save()
+            return redirect("Inicio") 
+    else:
+        formulario_usuario = UserCreationForm()
+        formulario_avatar = AvatarForm()
 
-        if formulario.is_valid():
-
-            formulario.save()
-
-            return render(request, "inicio.html", {"mensaje":"Se ha creado el usuario con éxito."})
-        
-    else: 
-
-        formulario = UserCreationForm()
-
-    return render(request, "registro.html", {"form1":formulario})
+    return render(request, "registro.html", {"form_usuario": formulario_usuario, "form_avatar": formulario_avatar})
 
 # Cerrar sesion
 

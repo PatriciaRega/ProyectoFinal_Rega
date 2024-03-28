@@ -12,8 +12,8 @@ Listado de médicos registrados
 
     <li> Nombre: {{valor.nombre}} {{valor.apellido}} - Correo electrónico: {{valor.email}} - Código de registro: {{valor.cod_medico}} </li>
 
-    <a href="{% url 'Editar' valor.id %}">Modificar</a>
-    <a href="{% url 'Eliminar' valor.id %}">Eliminar</a>
+    <a href="{% url 'Editar medico' valor.id %}">Modificar</a>
+    <a href="{% url 'Eliminar medico' valor.id %}">Eliminar</a>
 
     {% endfor %}
     

@@ -15,23 +15,25 @@ urlpatterns = [
 
     path("crear_medicos/", crear_medico, name = 'crear medicos'),
     path("ver_medicos/", ver_medicos, name = 'ver medicos'),
-    path("actualizar_medicos/<id_medico>", actualizar_medico, name = "Editar"),
-    path("borrar_medicos/<id_medico>", borrar_medico, name = "Eliminar"),
+    path("actualizar_medicos/<id_medico>", actualizar_medico, name = "Editar medico"),
+    path("borrar_medicos/<id_medico>", borrar_medico, name = "Eliminar medico"),
 
     path("crear_pacientes/", crear_paciente, name = 'crear pacientes'),
     path("ver_pacientes/", ver_pacientes, name = 'ver pacientes'),
-    path("actualizar_pacientes/<id_paciente>", actualizar_paciente, name = "Editar"),
-    path("borrar_pacientes/<id_paciente>", borrar_pacientes, name = "Eliminar"),
+    path("actualizar_pacientes/<id_paciente>", actualizar_paciente, name = "Editar paciente"),
+    path("borrar_pacientes/<id_paciente>", borrar_pacientes, name = "Eliminar paciente"),
 
     path("crear_farmaco/", crear_farmaco, name = 'crear farmaco'),
     path("ver_farmaco/", ver_farmaco, name = 'ver farmaco'),
-    path("actualizar_farmaco/<id_farmaco>", actualizar_farmaco, name = "Editar"),
-    path("borrar_farmaco/<id_farmaco>", borrar_farmaco, name = "Eliminar"),
+    path("actualizar_farmaco/<id_farmaco>", actualizar_farmaco, name = "Editar farmaco"),
+    path("borrar_farmaco/<id_farmaco>", borrar_farmaco, name = "Eliminar farmaco"),
+
+    path("no_permiso/", no_permiso, name = 'no permiso'),
 
     path("crear_solicitudes/", crear_solicitud, name = 'crear solicitudes'),
     path("ver_solicitudes/", ver_solicitudes, name = 'ver solicitudes'),
-    path("actualizar_solicitudes/<id_solicitud>", actualizar_solicitud, name = "Editar"),
-    path("borrar_solicitudes/<id_solicitud>", borrar_solicitud, name = "Eliminar"),
+    path("actualizar_solicitudes/<id_solicitud>", actualizar_solicitud, name = "Editar solicitud"),
+    path("borrar_solicitudes/<id_solicitud>", borrar_solicitud, name = "Eliminar solicitud"),
     
     #URLS DE BUSQUEDA
 

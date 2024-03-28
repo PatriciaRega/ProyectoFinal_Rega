@@ -12,7 +12,8 @@ Fármacos disponibles en el laboratorio
 
     <li> Fármaco: {{valor.nombre}} - Matriz biológica: {{valor.matriz_biologica}} </li>
 
-    {{todos_farmacos}}
+    <a href="{% url 'Editar farmaco' valor.id %}">Modificar</a>
+    <a href="{% url 'Eliminar farmaco' valor.id %}">Eliminar</a>
 
     {% endfor %}
     

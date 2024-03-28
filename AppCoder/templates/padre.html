@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        {% load static %}
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>AppCoder</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="{% static '/css/styles.css' %}" rel="stylesheet" />
-    </head>
+<head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>AppCoder</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static '/css/styles.css' %}" rel="stylesheet" />
+    <style>
+        .avatar-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+        .avatar-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
 
-    <body>
-        
-        <!-- Responsive navbar-->
+<body>
+
+<!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-lg-5">
         <a class="navbar-brand" href="{% url 'Inicio'%}">Hospital Santa Ana</a>
@@ -29,52 +43,60 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'buscar solicitudes'%}">Buscar solicitudes</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'ver farmaco'%}">Farmacos disponibles</a></li>
                 {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'Cerrar sesion'%}">Cerrar sesión</a></li>
+                    <li class="nav-item">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-circle">
+                                {% if request.user.avatar %}
+                                <img src="{{ request.user.avatar.imagen.url }}" alt="" height="40px"/>
+                                {%endif%}
+                            </div>
+                            <span class="nav-link">Hola, {{ user.username }}</span>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'Cerrar sesion'%}">Cerrar sesión</a></li>
                 {% else %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'Iniciar sesion'%}">Iniciar sesión</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'Crear usuario'%}">Crear usuario</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'Iniciar sesion'%}?next={{ request.path }}">Iniciar sesión</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'Crear usuario'%}">Crear usuario</a></li>
                 {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 
-        
-        <!-- Header-->
-        <header class="py-3">
-            <div class="container px-lg-5">
-                <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-                    <div class="m-4 m-lg-4">
-                        <h1 class="display-5 fw-bold"> 
-                            {% block encabezado %} 
-                            {% endblock %}
-                        </h1>
-                        <p class="fs-4"> 
-                            {% block subtitulo %} 
-                            {% endblock %}
-                             </p>
-                             {% block boton %} 
-                             {% endblock %}
-                    </div>
-                </div>
+<!-- Header-->
+<header class="py-3">
+    <div class="container px-lg-5">
+        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+            <div class="m-4 m-lg-4">
+                <h1 class="display-5 fw-bold">
+                    {% block encabezado %}
+                    {% endblock %}
+                </h1>
+                <p class="fs-4">
+                    {% block subtitulo %}
+                    {% endblock %}
+                </p>
+                {% block boton %}
+                {% endblock %}
             </div>
-        </header>
-    
-        <hr style="border: none; border-top: 1px solid transparent;">
-    <div>
-        {% block cuerpo %}
-        {% endblock %}
+        </div>
     </div>
+</header>
 
-    <hr style="border: none; border-top: 1px solid transparent;">
-        <!-- Footer-->
-        <footer class="py-4 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Patricia Rega - 2024</p></div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
+<hr style="border: none; border-top: 1px solid transparent;">
+<div>
+    {% block cuerpo %}
+    {% endblock %}
+</div>
+
+<hr style="border: none; border-top: 1px solid transparent;">
+<!-- Footer-->
+<footer class="py-4 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Patricia Rega - 2024</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
 </html>
-
