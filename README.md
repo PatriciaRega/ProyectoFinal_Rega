@@ -26,7 +26,3 @@ Es necesario estar logueado para realizar el ingreso y modificación de los dato
 El usuario administrador para la aplicación es el siguiente:
 user: admin
 password: coderhouse
-
-
-
-
