@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from AppCoder.models import Medico, Solicitud, Paciente
-from AppCoder.forms import FormularioMedico, FormularioPaciente, FormularioSolicitud
+from AppCoder.models import Medico, Solicitud, Paciente, Farmaco
+from AppCoder.forms import FormularioMedico, FormularioPaciente, FormularioSolicitud, FormularioFarmaco
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib import messages
@@ -34,13 +34,15 @@ def crear_medico(request):
 
             medico.save()
 
-            return redirect("crear pacientes")
+            messages.success(request, "El médico ha sido creado con éxito.")
+
+            return redirect("Inicio")
     
     else:
             
         formulario_medico1 = FormularioMedico()
 
-    return render(request, "crear_pacientes.html", {"form1":formulario_medico1})
+    return render(request, "crear_medicos.html", {"form1":formulario_medico1})
 
 def ver_medicos(request):
 
@@ -83,6 +85,64 @@ def borrar_medico(request, id_medico):
 
     return render(request, "inicio.html") 
 
+####### CRUD de Farmaco #######
+
+def crear_farmaco(request):
+
+    if request.method == "POST":
+
+        formulario_farmaco1 = FormularioFarmaco(request.POST)
+
+        if formulario_farmaco1.is_valid():
+            
+            info = formulario_farmaco1.cleaned_data
+
+            farmaco = Farmaco(nombre=info["nombre"], 
+                                matriz_biologica=info["matriz_biologica"])
+
+            farmaco.save()
+
+            messages.success(request, "El nuevo fármaco ha sido creado con éxito.")
+
+            return redirect("Inicio")
+    
+    else:
+            
+        formulario_farmaco1 = FormularioFarmaco()
+
+    return render(request, "crear_farmaco.html", {"form1":formulario_farmaco1})
+
+def ver_farmaco(request):
+
+    todos_farmacos = Farmaco.objects.all()
+
+    return render(request, "ver_farmaco.html", {"total":todos_farmacos})
+
+def actualizar_farmaco(request, id_farmaco):
+
+    farmaco_seleccionado = Farmaco.objects.get(id=id_farmaco)
+
+    if request.method == "POST":
+
+        formulario_farmaco1 = FormularioFarmaco(request.POST, instance=farmaco_seleccionado)
+
+        if formulario_farmaco1.is_valid():
+
+            formulario_farmaco1.save()
+
+            return render(request, "crear_farmaco.html")
+    else:
+        formulario_farmaco1 = FormularioPaciente(instance=farmaco_seleccionado)
+
+    return render(request, "actualizar_farmaco.html", {"form1": farmaco_seleccionado})
+
+def borrar_farmaco(request, id_farmaco):
+        
+    farmaco_seleccionado = Farmaco.objects.get(id = id_farmaco)
+
+    farmaco_seleccionado.delete()
+
+    return render(request, "inicio.html")
 
 
 ####### CRUD de PACIENTE #######
@@ -104,7 +164,9 @@ def crear_paciente(request):
 
             paciente.save()
 
-            return redirect("crear solicitudes")
+            messages.success(request, "El paciente ha sido creado con éxito.")
+
+            return redirect("Inicio")
     
     else:
             
@@ -130,15 +192,15 @@ def actualizar_paciente(request, id_paciente):
 
             formulario_paciente1.save()
 
-            return render(request, "crear_solicitudes.html")
+            return render(request, "crear_pacientes.html")
     else:
         formulario_paciente1 = FormularioPaciente(instance=paciente_seleccionado)
 
     return render(request, "actualizar_pacientes.html", {"form1": formulario_paciente1})
 
-def borrar_pacientes(request, id_medico):
+def borrar_pacientes(request, id_paciente):
         
-    paciente_seleccionado = Paciente.objects.get(id = id_medico)
+    paciente_seleccionado = Paciente.objects.get(id = id_paciente)
 
     paciente_seleccionado.delete()
 

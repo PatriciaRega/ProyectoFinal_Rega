@@ -1,0 +1,21 @@
+{% extends "padre.html" %}
+
+{% block encabezado %}
+Fármacos disponibles en el laboratorio
+{% endblock %}
+
+{% block cuerpo %}
+
+<ol> 
+
+    {% for valor in total %}
+
+    <li> Fármaco: {{valor.nombre}} - Matriz biológica: {{valor.matriz_biologica}} </li>
+
+    {{todos_farmacos}}
+
+    {% endfor %}
+    
+</ol>
+
+{% endblock %}

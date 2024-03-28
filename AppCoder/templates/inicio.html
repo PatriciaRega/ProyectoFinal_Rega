@@ -9,7 +9,7 @@ Medicina personalizada
 {% endblock %}
 
 {% block boton %} 
-<a class="btn btn-primary btn-lg" href="{% url 'crear medicos'%}">Ingresar solicitud</a>
+<a class="btn btn-primary btn-lg" href="{% url 'crear solicitudes'%}">Ingresar solicitud</a>
 {% endblock %}
 
 {% block cuerpo %} 
@@ -55,6 +55,42 @@ Medicina personalizada
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-card-heading"></i></div>
                                 <a class="btn btn-primary btn-lg" href="{% url 'ver solicitudes'%}">Registros de solicitudes</a>
                                 <p class="mb-0">Ingrese aquí para acceder a la lista de solicitudes de dosificación realizadas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Content-->
+        <section class="pt-4">
+            <div class="container px-lg-5">
+                <!-- Page Features-->
+                <div class="row gx-lg-5">
+                    <div class="col-lg-6 col-xxl-4 mb-5">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                                <a class="btn btn-primary btn-lg" href="{% url 'crear medicos'%}">Ingresar nuevos médicos</a>
+                                <p class="mb-0">Ingrese aquí para registrar un nuevo médico</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xxl-4 mb-5">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-cloud-download"></i></div>
+                                <a class="btn btn-primary btn-lg" href="{% url 'crear pacientes'%}">Ingresar nuevos pacientes</a>
+                                <p class="mb-0">Ingrese aquí para registrar un nuevo paciente</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xxl-4 mb-5">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-card-heading"></i></div>
+                                <a class="btn btn-primary btn-lg" href="{% url 'crear farmaco'%}">Ingresar nuevos fármacos</a>
+                                <p class="mb-0">Ingrese aquí para registrar un nuevo fármaco (solo habilitado para laboratorio)</p>
                             </div>
                         </div>
                     </div>

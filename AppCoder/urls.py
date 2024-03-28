@@ -1,6 +1,7 @@
 from django.urls import path
 from AppCoder.views import *
 
+
 urlpatterns = [
     
     path("", inicio, name="Inicio"),
@@ -19,16 +20,22 @@ urlpatterns = [
 
     path("crear_pacientes/", crear_paciente, name = 'crear pacientes'),
     path("ver_pacientes/", ver_pacientes, name = 'ver pacientes'),
-    path("actualizar_pacientes/<id_medico>", actualizar_paciente, name = "Editar"),
-    path("borrar_pacientes/<id_medico>", borrar_pacientes, name = "Eliminar"),
+    path("actualizar_pacientes/<id_paciente>", actualizar_paciente, name = "Editar"),
+    path("borrar_pacientes/<id_paciente>", borrar_pacientes, name = "Eliminar"),
+
+    path("crear_farmaco/", crear_farmaco, name = 'crear farmaco'),
+    path("ver_farmaco/", ver_farmaco, name = 'ver farmaco'),
+    path("actualizar_farmaco/<id_farmaco>", actualizar_farmaco, name = "Editar"),
+    path("borrar_farmaco/<id_farmaco>", borrar_farmaco, name = "Eliminar"),
 
     path("crear_solicitudes/", crear_solicitud, name = 'crear solicitudes'),
     path("ver_solicitudes/", ver_solicitudes, name = 'ver solicitudes'),
-    path("actualizar_solicitudes/<id_medico>", actualizar_solicitud, name = "Editar"),
-    path("borrar_solicitudes/<id_medico>", borrar_solicitud, name = "Eliminar"),
+    path("actualizar_solicitudes/<id_solicitud>", actualizar_solicitud, name = "Editar"),
+    path("borrar_solicitudes/<id_solicitud>", borrar_solicitud, name = "Eliminar"),
     
     #URLS DE BUSQUEDA
 
     path("buscar_solicitudes/", buscar_solicitudes, name = 'buscar solicitudes')
   
     ]
+
