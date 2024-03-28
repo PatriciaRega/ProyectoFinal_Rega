@@ -12,9 +12,11 @@ Listado de solicitudes realizadas
 
     <li> Fecha: {{valor.fecha}} - Fármaco: {{valor.farmaco}} - Paciente: {{valor.cod_paciente}} - Médico: {{valor.cod_medico}} </li>
 
-    {{todas_solicitudes}}
+    <a href="{% url 'Editar solicitud' valor.id %}">Modificar</a>
+    <a href="{% url 'Eliminar solicitud' valor.id %}">Eliminar</a>
 
     {% endfor %}
     
 </ol>
+
 {% endblock %}

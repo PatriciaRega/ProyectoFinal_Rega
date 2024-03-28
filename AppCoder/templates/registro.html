@@ -6,11 +6,13 @@ Crear un nuevo usuario
 
 {% block cuerpo %}
 
-<form action="" method="POST"> {% csrf_token %}
+<form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 
-    <p>{{form1}}</p>
+    <p>{{ form_usuario.as_p }}</p>
+
+    <p>{{ form_avatar.as_p }}</p>
     
-<input type="submit" value="Iniciar Sesión">
+    <input type="submit" value="Crear usuario">
 
 </form>
 
