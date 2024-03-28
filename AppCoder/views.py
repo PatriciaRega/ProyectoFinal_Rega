@@ -8,8 +8,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 
-
-
 # Create your views here.
 
 def inicio(request):
@@ -28,7 +26,7 @@ def no_permiso(request):
 
 ####### CRUD de Médico #######
 
-@login_required
+@login_required(login_url='no permiso')
 def crear_medico(request):
 
     if request.method == "POST":
@@ -62,7 +60,7 @@ def ver_medicos(request):
 
     return render(request, "ver_medicos.html", {"total":todos_medicos})
 
-@login_required
+@login_required(login_url='no permiso')
 def actualizar_medico(request, id_medico):
     medico_seleccionado = Medico.objects.get(id=id_medico)
 
@@ -76,7 +74,7 @@ def actualizar_medico(request, id_medico):
 
     return render(request, "actualizar_medicos.html", {"form1": formulario_medico})
 
-@login_required
+@login_required(login_url='no permiso')
 def borrar_medico(request, id_medico):
         
     medico_seleccionado = Medico.objects.get(id = id_medico)
@@ -154,7 +152,7 @@ def borrar_farmaco(request, id_farmaco):
 
 ####### CRUD de PACIENTE #######
 
-@login_required
+@login_required(login_url='no permiso')
 def crear_paciente(request):
 
     if request.method == "POST":
@@ -188,7 +186,7 @@ def ver_pacientes(request):
 
     return render(request, "ver_pacientes.html", {"total":todos_pacientes})
 
-@login_required
+@login_required(login_url='no permiso')
 def actualizar_paciente(request, id_paciente):
     paciente_seleccionado = Paciente.objects.get(id=id_paciente)
    
@@ -203,7 +201,7 @@ def actualizar_paciente(request, id_paciente):
 
     return render(request, "actualizar_pacientes.html", {"form1": formulario_paciente})
 
-@login_required
+@login_required(login_url='no permiso')
 def borrar_pacientes(request, id_paciente):
         
     paciente_seleccionado = Paciente.objects.get(id = id_paciente)
@@ -216,7 +214,7 @@ def borrar_pacientes(request, id_paciente):
 
 ####### CRUD de Solicitud #######
 
-@login_required
+@login_required(login_url='no permiso')
 def crear_solicitud(request):
 
     if request.method == "POST":
@@ -240,12 +238,12 @@ def crear_solicitud(request):
 
     return render(request, "crear_solicitudes.html", {"form1": formulario_solicitud})
 
-@login_required
+@login_required(login_url='no permiso')
 def ver_solicitudes(request):
     todas_solicitudes = Solicitud.objects.all()
     return render(request, "ver_solicitudes.html", {"total": todas_solicitudes})
 
-@login_required
+@login_required(login_url='no permiso')
 def actualizar_solicitud(request, id_solicitud):
     solicitud_seleccionada = Solicitud.objects.get(id=id_solicitud)
    
@@ -260,7 +258,7 @@ def actualizar_solicitud(request, id_solicitud):
 
     return render(request, "actualizar_solicitudes.html", {"form1": formulario_solicitud})
 
-@login_required
+@login_required(login_url='no permiso')
 def borrar_solicitud(request, id_solicitud):
     solicitud_seleccionada = Solicitud.objects.get(id=id_solicitud)
     solicitud_seleccionada.delete()
@@ -270,7 +268,7 @@ def borrar_solicitud(request, id_solicitud):
 
 ####### BUSCAR SOLICITUDES #######
 
-@login_required
+@login_required(login_url='no permiso')
 def buscar_solicitudes(request):
 
     filtrar_solicitud = None  # Inicializa la variable fuera del bloque 'if'
